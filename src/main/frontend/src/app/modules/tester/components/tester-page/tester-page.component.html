@@ -1,0 +1,31 @@
+<h1>Simple Tester matcher</h1>
+
+<mat-form-field>
+  <mat-label>Country</mat-label>
+  <mat-select multiple>
+    <mat-option [value]="null">
+      ALL
+    </mat-option>
+    <mat-option *ngFor="let country of countries" [value]="country">
+      {{ country }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Device</mat-label>
+  <mat-select multiple>
+    <mat-option [value]="null">
+      ALL
+    </mat-option>
+    <mat-option *ngFor="let device of devices" [value]="device.id">
+      {{ device.description }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-list>
+  <mat-list-item>
+    Hey
+  </mat-list-item>
+</mat-list>
