@@ -15,7 +15,7 @@ public interface TesterRepository extends JpaRepository<Tester, Long> {
   @Query("select t as tester, count(distinct b.id) as experience from Tester t " +
       "join t.devices d " +
       "left join Bug b on b.tester = t and b.device = d " +
-      "where (:deviceIds is null or d.id in :deviceIds) and (:countries is null or t.country in :countries) " +
+      "where ((:deviceIds) is null or d.id in (:deviceIds)) and ((:countries) is null or t.country in (:countries)) " +
       "group by t " +
       "order by experience desc ")
   List<TesterExperienceProjection> findByDevicesInAndCountryInOrderByExperienceDesc(

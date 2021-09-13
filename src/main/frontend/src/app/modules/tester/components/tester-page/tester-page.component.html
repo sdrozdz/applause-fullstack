@@ -1,31 +1,65 @@
 <h1>Simple Tester matcher</h1>
 
-<mat-form-field>
-  <mat-label>Country</mat-label>
-  <mat-select multiple>
-    <mat-option [value]="null">
-      ALL
-    </mat-option>
-    <mat-option *ngFor="let country of countries" [value]="country">
-      {{ country }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<form [formGroup]="filterForm" fxLayout="row" fxLayoutGap="3%">
+  <mat-form-field fxFlex="50%">
+    <mat-label>Country</mat-label>
 
-<mat-form-field>
-  <mat-label>Device</mat-label>
-  <mat-select multiple>
-    <mat-option [value]="null">
-      ALL
-    </mat-option>
-    <mat-option *ngFor="let device of devices" [value]="device.id">
-      {{ device.description }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+    <mat-select multiple formControlName="country" #countriesSelect>
+      <mat-option [value]="null" (click)="toggleSelectAll(countriesSelect)">
+        ALL
+      </mat-option>
+      <mat-optgroup label="Countries">
+        <mat-option *ngFor="let country of countries" [value]="country" (click)="toggleOption(countriesSelect)">
+          {{ country }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
 
-<mat-list>
-  <mat-list-item>
-    Hey
-  </mat-list-item>
-</mat-list>
+
+  <mat-form-field fxFlex="50%">
+    <mat-label>Device</mat-label>
+    <mat-select multiple formControlName="device" #devicesSelect>
+      <mat-option [value]="null" (click)="toggleSelectAll(devicesSelect)">
+        ALL
+      </mat-option>
+      <mat-optgroup label="Devices">
+        <mat-option *ngFor="let device of devices; trackBy: identifiable" [value]="device.id"
+                    (click)="toggleOption(devicesSelect)">
+          {{ device.description }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+</form>
+
+<table mat-table [dataSource]="testers" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let it">{{ it.id }}</td>
+  </ng-container>
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef>First Name</th>
+    <td mat-cell *matCellDef="let it">{{ it.firstName }}</td>
+  </ng-container>
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef>Last Name</th>
+    <td mat-cell *matCellDef="let it">{{ it.lastName }}</td>
+  </ng-container>
+  <ng-container matColumnDef="experience">
+    <th mat-header-cell *matHeaderCellDef>Experience</th>
+    <td mat-cell *matCellDef="let it">{{ it.experience }}</td>
+  </ng-container>
+  <ng-container matColumnDef="country">
+    <th mat-header-cell *matHeaderCellDef>Country</th>
+    <td mat-cell *matCellDef="let it">{{ it.country }}</td>
+  </ng-container>
+  <ng-container matColumnDef="lastLogin">
+    <th mat-header-cell *matHeaderCellDef>Last Login</th>
+    <td mat-cell *matCellDef="let it">{{ it.lastLogin }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+</table>

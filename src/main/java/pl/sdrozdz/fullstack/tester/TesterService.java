@@ -7,6 +7,7 @@ import pl.sdrozdz.fullstack.tester.dto.TesterDto;
 import pl.sdrozdz.fullstack.tester.dto.TesterExperienceProjection;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -16,9 +17,9 @@ public class TesterService {
 
   private final TesterRepository testerRepository;
 
-  public List<TesterDto> getTesters(SearchCriteriaDto searchCriteriaDto) {
-    List<Long> deviceIds = searchCriteriaDto.getDevice();
-    List<String> countries = searchCriteriaDto.getCountry();
+  public List<TesterDto> getTesters(Optional<SearchCriteriaDto> criteria) {
+    List<Long> deviceIds = criteria.map(SearchCriteriaDto::getDevice).orElse(null);
+    List<String> countries = criteria.map(SearchCriteriaDto::getCountry).orElse(null);
     return testerRepository
         .findByDevicesInAndCountryInOrderByExperienceDesc(deviceIds, countries)
         .stream()

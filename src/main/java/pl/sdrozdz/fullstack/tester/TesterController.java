@@ -1,14 +1,15 @@
 package pl.sdrozdz.fullstack.tester;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sdrozdz.fullstack.tester.dto.SearchCriteriaDto;
 import pl.sdrozdz.fullstack.tester.dto.TesterDto;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,8 +18,8 @@ public class TesterController {
 
   private final TesterService testerService;
 
-  @GetMapping
-  public List<TesterDto> getTesters(@ModelAttribute SearchCriteriaDto searchCriteriaDto) {
+  @PostMapping
+  public List<TesterDto> getTesters(@RequestBody(required = false) Optional<SearchCriteriaDto> searchCriteriaDto) {
     return testerService.getTesters(searchCriteriaDto);
   }
 }
