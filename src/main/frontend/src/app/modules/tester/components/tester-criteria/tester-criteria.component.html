@@ -1,0 +1,35 @@
+<form [formGroup]="form" fxLayout="row" fxLayoutGap="3%">
+  <mat-form-field fxFlex="50%">
+    <mat-label>Country</mat-label>
+
+    <mat-select multiple formControlName="country" #countriesSelect id="sd-countries-select">
+      <mat-select-trigger>{{ form.get('country')?.value | commaValues }}</mat-select-trigger>
+      <mat-option [value]="null" (click)="toggleSelectAll(countriesSelect)">
+        ALL
+      </mat-option>
+      <mat-optgroup label="Countries">
+        <mat-option *ngFor="let country of countries" [value]="country" (click)="toggleOption(countriesSelect)">
+          {{ country }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field fxFlex="50%">
+    <mat-label>Device</mat-label>
+    <mat-select multiple formControlName="device" #devicesSelect [compareWith]="compareIdentifiable">
+      <mat-select-trigger>{{ form.get('device')?.value | commaValues }}</mat-select-trigger>
+      <mat-option [value]="null" (click)="toggleSelectAll(devicesSelect)">
+        ALL
+      </mat-option>
+      <mat-optgroup label="Devices">
+        <mat-option *ngFor="let device of devices; trackBy: identifiable" [value]="device"
+                    (click)="toggleOption(devicesSelect)">
+          {{ device.description }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+</form>
+

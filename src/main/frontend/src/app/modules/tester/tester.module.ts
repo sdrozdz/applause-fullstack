@@ -10,11 +10,13 @@ import {TesterService} from "./services/tester.service";
 import {MatTableModule} from "@angular/material/table";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatButtonModule} from "@angular/material/button";
+import { TesterCriteriaComponent } from './components/tester-criteria/tester-criteria.component';
 
 
 @NgModule({
   declarations: [
-    TesterPageComponent
+    TesterPageComponent,
+    TesterCriteriaComponent
   ],
   imports: [
     CommonModule,

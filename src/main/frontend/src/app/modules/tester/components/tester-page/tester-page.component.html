@@ -1,37 +1,7 @@
 <h1>Simple Tester matcher</h1>
 
-<form [formGroup]="filterForm" fxLayout="row" fxLayoutGap="3%">
-  <mat-form-field fxFlex="50%">
-    <mat-label>Country</mat-label>
-
-    <mat-select multiple formControlName="country" #countriesSelect>
-      <mat-option [value]="null" (click)="toggleSelectAll(countriesSelect)">
-        ALL
-      </mat-option>
-      <mat-optgroup label="Countries">
-        <mat-option *ngFor="let country of countries" [value]="country" (click)="toggleOption(countriesSelect)">
-          {{ country }}
-        </mat-option>
-      </mat-optgroup>
-    </mat-select>
-  </mat-form-field>
-
-
-  <mat-form-field fxFlex="50%">
-    <mat-label>Device</mat-label>
-    <mat-select multiple formControlName="device" #devicesSelect>
-      <mat-option [value]="null" (click)="toggleSelectAll(devicesSelect)">
-        ALL
-      </mat-option>
-      <mat-optgroup label="Devices">
-        <mat-option *ngFor="let device of devices; trackBy: identifiable" [value]="device.id"
-                    (click)="toggleOption(devicesSelect)">
-          {{ device.description }}
-        </mat-option>
-      </mat-optgroup>
-    </mat-select>
-  </mat-form-field>
-</form>
+<sd-tester-criteria [countries]="countries" [devices]="devices"
+                    (onCriteriaChange)="search($event)"></sd-tester-criteria>
 
 <table mat-table [dataSource]="testers" class="mat-elevation-z8">
 

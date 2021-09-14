@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 
 export interface SearchCriteriaDto {
   country: string[];
-  device: string[];
+  device: number[];
 }
 
 export interface TesterDto {
